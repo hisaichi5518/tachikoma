@@ -198,8 +198,8 @@ module Tachikoma
         sh(*['git', 'config', 'user.name', @commiter_name])
         sh(*['git', 'config', 'user.email', @commiter_email])
         sh(*['git', 'checkout', '-b', "tachikoma/update-#{@readable_time}", @base_remote_branch])
-        sh(*%w(carthage bootstrap), @carthage_bootstrap_options)
-        sh(*%w(carthage update), @carthage_update_options)
+        sh(*%w(carthage bootstrap), *@carthage_bootstrap_options)
+        sh(*%w(carthage update), *@carthage_update_options)
         sh(*['git', 'add', 'Cartfile.resolved'])
         sh(*['git', 'commit', '-m', "Carthage update #{@readable_time}"]) do
           # ignore exitstatus

@@ -98,5 +98,5 @@ git_clone_depth: false
 #
 bundler_restore_bundled_with: false
 
-carthage_bootstrap_options: ""
-carthage_update_options: ""
+carthage_bootstrap_options: []
+carthage_update_options: []
