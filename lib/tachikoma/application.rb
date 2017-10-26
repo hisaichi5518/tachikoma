@@ -51,6 +51,8 @@ module Tachikoma
       @parallel_option = bundler_parallel_option(Bundler::VERSION, @configure['bundler_parallel_number'])
       @depth_option = git_clone_depth_option(@configure['git_clone_depth'])
       @bundler_restore_bundled_with = @configure['bundler_restore_bundled_with']
+      @carthage_bootstrap_options = @configure['carthage_bootstrap_options']
+      @carthage_update_options = @configure['carthage_update_options']
 
       @target_head = target_repository_user(@type, @url, @github_account)
       @pull_request_url = repository_identity(@url)
@@ -196,8 +198,8 @@ module Tachikoma
         sh(*['git', 'config', 'user.name', @commiter_name])
         sh(*['git', 'config', 'user.email', @commiter_email])
         sh(*['git', 'checkout', '-b', "tachikoma/update-#{@readable_time}", @base_remote_branch])
-        sh(*%w(carthage bootstrap))
-        sh(*%w(carthage update))
+        sh(*%w(carthage bootstrap), @carthage_bootstrap_options)
+        sh(*%w(carthage update), @carthage_update_options)
         sh(*['git', 'add', 'Cartfile.resolved'])
         sh(*['git', 'commit', '-m', "Carthage update #{@readable_time}"]) do
           # ignore exitstatus
